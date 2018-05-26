@@ -18,5 +18,23 @@ public class GiangvienServiceImpl implements GiangvienService{
 		// TODO Auto-generated method stub
 		return giangvienRepo.findAll();
 	}
+	@Override
+	public boolean addGiangvien(Giangvien giangvien) {
+		// TODO Auto-generated method stub
+		giangvienRepo.saveAndFlush(giangvien);
+		return true;
+	}
+	@Override
+	public boolean editGiangvien(Giangvien giangvien) {
+		// TODO Auto-generated method stub
+		giangvienRepo.save(giangvien);
+		return true;
+	}
+	@Override
+	public boolean DeleteGiangvien(Giangvien giangvien) {
+		// TODO Auto-generated method stub
+		giangvienRepo.delete(giangvien);
+		return true;
+	}
 
 }

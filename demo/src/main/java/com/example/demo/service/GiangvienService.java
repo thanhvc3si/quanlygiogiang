@@ -6,4 +6,7 @@ import com.example.demo.model.Giangvien;
 
 public interface GiangvienService {
 	List<Giangvien> getlistAllGiangvien();
+	boolean addGiangvien(Giangvien giangvien);
+	boolean editGiangvien(Giangvien giangvien);
+	boolean DeleteGiangvien(Giangvien giangvien);
 }

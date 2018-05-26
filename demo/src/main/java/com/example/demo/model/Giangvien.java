@@ -15,8 +15,6 @@ public class Giangvien implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="GIANGVIEN_IDGIANGVIEN_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="GIANGVIEN_IDGIANGVIEN_GENERATOR")
 	@Column(name="id_giang_vien")
 	private long idGiangVien;
 
