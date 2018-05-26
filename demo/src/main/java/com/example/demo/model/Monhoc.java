@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.util.List;
 
 
@@ -10,13 +13,12 @@ import java.util.List;
  * 
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @NamedQuery(name="Monhoc.findAll", query="SELECT m FROM Monhoc m")
 public class Monhoc implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MONHOC_IDMONHOC_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MONHOC_IDMONHOC_GENERATOR")
 	@Column(name="id_mon_hoc")
 	private long idMonHoc;
 
@@ -36,8 +38,8 @@ public class Monhoc implements Serializable {
 	private String tenMonHoc;
 
 	//bi-directional many-to-many association to Hanhdong
-	@ManyToMany(mappedBy="monhocs")
-	private List<Hanhdong> hanhdongs;
+//	@ManyToMany(mappedBy="monhocs")
+//	private List<Hanhdong> hanhdongs;
 
 	public Monhoc() {
 	}
@@ -90,12 +92,12 @@ public class Monhoc implements Serializable {
 		this.tenMonHoc = tenMonHoc;
 	}
 
-	public List<Hanhdong> getHanhdongs() {
-		return this.hanhdongs;
-	}
-
-	public void setHanhdongs(List<Hanhdong> hanhdongs) {
-		this.hanhdongs = hanhdongs;
-	}
+//	public List<Hanhdong> getHanhdongs() {
+//		return this.hanhdongs;
+//	}
+//
+//	public void setHanhdongs(List<Hanhdong> hanhdongs) {
+//		this.hanhdongs = hanhdongs;
+//	}
 
 }
