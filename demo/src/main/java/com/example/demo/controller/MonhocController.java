@@ -34,9 +34,9 @@ public class MonhocController {
 		return new ResponseEntity<List<Monhoc>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("monhoc-info/{mamon}")
-	public ResponseEntity<Monhoc> monhocInfo(@PathVariable("mamon") String mamon) {
-		Monhoc stUserInfo = monhocService.findMonHocInfo(mamon);
+	@GetMapping("monhoc-info/{id}")
+	public ResponseEntity<Monhoc> monhocInfo(@PathVariable("id") long id) {
+		Monhoc stUserInfo = monhocService.findMonHocInfo(id);
 		return new ResponseEntity<Monhoc>(stUserInfo, HttpStatus.OK);
 	}
 	

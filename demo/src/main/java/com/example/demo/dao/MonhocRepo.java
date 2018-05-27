@@ -8,5 +8,5 @@ import com.example.demo.model.Monhoc;
 public interface MonhocRepo extends JpaRepository<Monhoc, Long>{
 	
 	@Query
-	Monhoc findByMaMonHoc(String maMonHoc);
+	Monhoc findByIdMonHoc(long id);
 }
