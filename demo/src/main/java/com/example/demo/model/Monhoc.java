@@ -3,24 +3,19 @@ package com.example.demo.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.util.List;
-
 
 /**
  * The persistent class for the monhoc database table.
  * 
  */
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @NamedQuery(name="Monhoc.findAll", query="SELECT m FROM Monhoc m")
 public class Monhoc implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="id_mon_hoc")
-	private long idMonHoc;
+	private String idMonHoc;
 
 	@Column(name="ma_mon_hoc")
 	private String maMonHoc;
@@ -34,21 +29,20 @@ public class Monhoc implements Serializable {
 	@Column(name="so_tin_chi")
 	private int soTinChi;
 
+	@Column(name="ten_lop")
+	private String tenLop;
+
 	@Column(name="ten_mon_hoc")
 	private String tenMonHoc;
-
-	//bi-directional many-to-many association to Hanhdong
-//	@ManyToMany(mappedBy="monhocs")
-//	private List<Hanhdong> hanhdongs;
 
 	public Monhoc() {
 	}
 
-	public long getIdMonHoc() {
+	public String getIdMonHoc() {
 		return this.idMonHoc;
 	}
 
-	public void setIdMonHoc(long idMonHoc) {
+	public void setIdMonHoc(String idMonHoc) {
 		this.idMonHoc = idMonHoc;
 	}
 
@@ -84,6 +78,14 @@ public class Monhoc implements Serializable {
 		this.soTinChi = soTinChi;
 	}
 
+	public String getTenLop() {
+		return this.tenLop;
+	}
+
+	public void setTenLop(String tenLop) {
+		this.tenLop = tenLop;
+	}
+
 	public String getTenMonHoc() {
 		return this.tenMonHoc;
 	}
@@ -91,13 +93,5 @@ public class Monhoc implements Serializable {
 	public void setTenMonHoc(String tenMonHoc) {
 		this.tenMonHoc = tenMonHoc;
 	}
-
-//	public List<Hanhdong> getHanhdongs() {
-//		return this.hanhdongs;
-//	}
-//
-//	public void setHanhdongs(List<Hanhdong> hanhdongs) {
-//		this.hanhdongs = hanhdongs;
-//	}
 
 }

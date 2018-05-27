@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.model.Giangvien;
+import com.example.demo.model.ThongKeGioGiang;
 
 public interface GiangvienService {
 	List<Giangvien> getlistAllGiangvien();
@@ -10,4 +11,6 @@ public interface GiangvienService {
 	boolean addGiangvien(Giangvien giangvien);
 	boolean editGiangvien(Giangvien giangvien);
 	boolean DeleteGiangvien(Giangvien giangvien);
+	
+	List<ThongKeGioGiang> thongKeGioGiang(long id);
 }

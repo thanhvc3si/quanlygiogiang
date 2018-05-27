@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.BaseResponse;
 import com.example.demo.model.Giangvien;
 import com.example.demo.model.Monhoc;
+import com.example.demo.model.ThongKeGioGiang;
 import com.example.demo.service.GiangvienService;
 import com.example.demo.untils.Constants;
 
@@ -37,6 +38,12 @@ public class GiangvienController {
 	public ResponseEntity<Giangvien> giangvienInfo(@PathVariable("id") long id) {
 		Giangvien stUserInfo = giangvienService.findGVbyId(id);
 		return new ResponseEntity<Giangvien>(stUserInfo, HttpStatus.OK);
+	}
+	
+	@GetMapping("thongke/{id}")
+	public ResponseEntity<List<ThongKeGioGiang>> thongke(@PathVariable("id") long id) {
+		List<ThongKeGioGiang> list = giangvienService.thongKeGioGiang(id);
+		return new ResponseEntity<List<ThongKeGioGiang>>(list, HttpStatus.OK);
 	}
 	
 	
