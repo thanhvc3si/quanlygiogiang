@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.BaseResponse;
 import com.example.demo.model.Giangvien;
@@ -20,7 +21,7 @@ import com.example.demo.model.Monhoc;
 import com.example.demo.service.GiangvienService;
 import com.example.demo.untils.Constants;
 
-@Controller
+@RestController
 @RequestMapping("/giangvien")
 public class GiangvienController {
 	@Autowired
@@ -40,7 +41,7 @@ public class GiangvienController {
 	
 	
 	@PostMapping("add")
-	public ResponseEntity<BaseResponse> addMonhoc(@RequestBody @Validated Giangvien giangvien, BindingResult result) {
+	public ResponseEntity<BaseResponse> addMonhoc(@Validated Giangvien giangvien, BindingResult result) {
 		boolean flag = giangvienService.addGiangvien(giangvien);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,
@@ -51,7 +52,7 @@ public class GiangvienController {
 	}
 	
 	@PostMapping("update")
-	public ResponseEntity<BaseResponse> editMonhoc(@RequestBody @Validated Giangvien giangvien, BindingResult result) {
+	public ResponseEntity<BaseResponse> editMonhoc(@Validated Giangvien giangvien, BindingResult result) {
 		boolean flag = giangvienService.editGiangvien(giangvien);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,

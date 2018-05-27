@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.BaseResponse;
 import com.example.demo.model.Monhoc;
 import com.example.demo.service.MonhocService;
 import com.example.demo.untils.Constants;
 
-@Controller
+@RestController
 @RequestMapping("/monhoc")
 public class MonhocController {
 	
@@ -32,7 +33,7 @@ public class MonhocController {
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<BaseResponse> addMonhoc(@RequestBody @Validated Monhoc monhoc, BindingResult result) {
+	public ResponseEntity<BaseResponse> addMonhoc(@Validated Monhoc monhoc, BindingResult result) {
 		boolean flag = monhocService.addMonHoc(monhoc);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,
@@ -43,7 +44,7 @@ public class MonhocController {
 	}
 	
 	@PostMapping("update")
-	public ResponseEntity<BaseResponse> editMonhoc(@RequestBody @Validated Monhoc monhoc, BindingResult result) {
+	public ResponseEntity<BaseResponse> editMonhoc(@Validated Monhoc monhoc, BindingResult result) {
 		boolean flag = monhocService.editMonHoc(monhoc);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,
