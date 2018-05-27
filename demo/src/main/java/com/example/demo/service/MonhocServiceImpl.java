@@ -39,4 +39,10 @@ public class MonhocServiceImpl implements MonhocService{
 		return true;
 	}
 
+	@Override
+	public Monhoc findMonHocInfo(String mamon) {
+		// TODO Auto-generated method stub
+		return monhocRepo.findByMaMonHoc(mamon);
+	}
+
 }

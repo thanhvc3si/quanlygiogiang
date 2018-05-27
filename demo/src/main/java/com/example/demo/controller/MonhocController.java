@@ -9,12 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.BaseResponse;
+import com.example.demo.model.Giangvien;
 import com.example.demo.model.Monhoc;
 import com.example.demo.service.MonhocService;
 import com.example.demo.untils.Constants;
@@ -30,6 +32,12 @@ public class MonhocController {
 	public ResponseEntity<List<Monhoc>> getListMonhoc() {
 		List<Monhoc> list = monhocService.listAllMonhoc();
 		return new ResponseEntity<List<Monhoc>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("monhoc-info/{mamon}")
+	public ResponseEntity<Monhoc> monhocInfo(@PathVariable("mamon") String mamon) {
+		Monhoc stUserInfo = monhocService.findMonHocInfo(mamon);
+		return new ResponseEntity<Monhoc>(stUserInfo, HttpStatus.OK);
 	}
 	
 	@PostMapping("add")
