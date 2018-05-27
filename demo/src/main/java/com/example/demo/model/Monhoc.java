@@ -14,6 +14,8 @@ public class Monhoc implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="MONHOC_IDMONHOC_GENERATOR" )
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="MONHOC_IDMONHOC_GENERATOR")
 	@Column(name="id_mon_hoc")
 	private String idMonHoc;
 
