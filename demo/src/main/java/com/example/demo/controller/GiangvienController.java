@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,13 @@ public class GiangvienController {
 		List<Giangvien> list = giangvienService.getlistAllGiangvien();
 		return new ResponseEntity<List<Giangvien>>(list, HttpStatus.OK);
 	}
+	
+	@GetMapping("giangvien-info/{id}")
+	public ResponseEntity<Giangvien> giangvienInfo(@PathVariable("id") long id) {
+		Giangvien stUserInfo = giangvienService.findGVbyId(id);
+		return new ResponseEntity<Giangvien>(stUserInfo, HttpStatus.OK);
+	}
+	
 	
 	@PostMapping("add")
 	public ResponseEntity<BaseResponse> addMonhoc(@RequestBody @Validated Giangvien giangvien, BindingResult result) {

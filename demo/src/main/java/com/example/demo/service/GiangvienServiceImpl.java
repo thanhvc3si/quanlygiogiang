@@ -36,5 +36,10 @@ public class GiangvienServiceImpl implements GiangvienService{
 		giangvienRepo.delete(giangvien);
 		return true;
 	}
+	@Override
+	public Giangvien findGVbyId(long id) {
+		// TODO Auto-generated method stub
+		return giangvienRepo.findByIdGiangVien(id);
+	}
 
 }

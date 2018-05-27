@@ -1,8 +1,9 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.*;
 
 
 /**
@@ -18,19 +19,14 @@ public class Hanhdong implements Serializable {
 	@SequenceGenerator(name="HANHDONG_IDHANHDONG_GENERATOR" )
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HANHDONG_IDHANHDONG_GENERATOR")
 	@Column(name="id_hanh_dong")
-	private long idHanhDong;
+	private String idHanhDong;
 
-	@Column(name="so_luong")
-	private int soLuong;
+	@Column(name="ma_hanh_dong")
+	private String maHanhDong;
 
 	@Column(name="ten_hanh_dong")
 	private String tenHanhDong;
-
-	//bi-directional many-to-many association to Giangvien
-	@ManyToMany(mappedBy="hanhdongs")
-	private List<Giangvien> giangviens;
-
-	//bi-directional many-to-many association to Monhoc
+	
 	@ManyToMany
 	@JoinTable(
 		name="hanhdong_monhoc"
@@ -43,23 +39,31 @@ public class Hanhdong implements Serializable {
 		)
 	private List<Monhoc> monhocs;
 
+	public List<Monhoc> getMonhocs() {
+		return monhocs;
+	}
+
+	public void setMonhocs(List<Monhoc> monhocs) {
+		this.monhocs = monhocs;
+	}
+
 	public Hanhdong() {
 	}
 
-	public long getIdHanhDong() {
+	public String getIdHanhDong() {
 		return this.idHanhDong;
 	}
 
-	public void setIdHanhDong(long idHanhDong) {
+	public void setIdHanhDong(String idHanhDong) {
 		this.idHanhDong = idHanhDong;
 	}
 
-	public int getSoLuong() {
-		return this.soLuong;
+	public String getMaHanhDong() {
+		return this.maHanhDong;
 	}
 
-	public void setSoLuong(int soLuong) {
-		this.soLuong = soLuong;
+	public void setMaHanhDong(String maHanhDong) {
+		this.maHanhDong = maHanhDong;
 	}
 
 	public String getTenHanhDong() {
@@ -68,22 +72,6 @@ public class Hanhdong implements Serializable {
 
 	public void setTenHanhDong(String tenHanhDong) {
 		this.tenHanhDong = tenHanhDong;
-	}
-
-	public List<Giangvien> getGiangviens() {
-		return this.giangviens;
-	}
-
-	public void setGiangviens(List<Giangvien> giangviens) {
-		this.giangviens = giangviens;
-	}
-
-	public List<Monhoc> getMonhocs() {
-		return this.monhocs;
-	}
-
-	public void setMonhocs(List<Monhoc> monhocs) {
-		this.monhocs = monhocs;
 	}
 
 }
