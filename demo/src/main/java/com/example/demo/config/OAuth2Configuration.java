@@ -11,43 +11,44 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.example.demo.service.CustomAuthenticationEntryPoint;
 import com.example.demo.service.CustomLogoutSuccessHandler;
 
+
 @Configuration
 public class OAuth2Configuration {
 
-	@Configuration
-	@EnableResourceServer
-	protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+	  @Configuration
+	    @EnableResourceServer
+	    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-		@Autowired
-		private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+	        @Autowired
+	        private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
-		@Autowired
-		private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+	        @Autowired
+	        private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
-		@Override
-        public void configure(HttpSecurity http) throws Exception {
+	        @Override
+	        public void configure(HttpSecurity http) throws Exception {
 
-            http
-                    .exceptionHandling()
-                    .authenticationEntryPoint(customAuthenticationEntryPoint)
-                    .and()
-                    .logout()
-                    .logoutUrl("/oauth/logout")
-                    .logoutSuccessHandler(customLogoutSuccessHandler)
-                    .and()
-                    .csrf()
-                    .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
-                    .disable()
-                    .headers()
-                    .frameOptions().disable().and()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/login/**").authenticated();
-                   
-        }
+	            http
+	                    .exceptionHandling()
+	                    .authenticationEntryPoint(customAuthenticationEntryPoint)
+	                    .and()
+	                    .logout()
+	                    .logoutUrl("/oauth/logout")
+	                    .logoutSuccessHandler(customLogoutSuccessHandler)
+	                    .and()
+	                    .csrf()
+	                    .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
+	                    .disable()
+	                    .headers()
+	                    .frameOptions().disable()
+	                    .and()
+	                    .authorizeRequests()
+	                    .antMatchers("/hello/").permitAll()
+	                    .antMatchers("/haha/**").authenticated();
+	                   
+	                    
+	            		
+	        }
 
-	}
-
+	    }
 }

@@ -1,7 +1,14 @@
 package com.example.demo.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 
 /**
@@ -14,10 +21,10 @@ public class Monhoc implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MONHOC_IDMONHOC_GENERATOR" )
+	@SequenceGenerator(name="MONHOC_IDMONHOC_GENERATOR", allocationSize = 1 )
 	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="MONHOC_IDMONHOC_GENERATOR")
 	@Column(name="id_mon_hoc")
-	private String idMonHoc;
+	private Long idMonHoc;
 
 	@Column(name="ma_mon_hoc")
 	private String maMonHoc;
@@ -40,11 +47,11 @@ public class Monhoc implements Serializable {
 	public Monhoc() {
 	}
 
-	public String getIdMonHoc() {
+	public Long getIdMonHoc() {
 		return this.idMonHoc;
 	}
 
-	public void setIdMonHoc(String idMonHoc) {
+	public void setIdMonHoc(Long idMonHoc) {
 		this.idMonHoc = idMonHoc;
 	}
 

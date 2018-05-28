@@ -6,8 +6,8 @@
 		<class>com.example.demo.model.Giangvien</class>
 		<class>com.example.demo.model.Hanhdong</class>
 		<class>com.example.demo.model.Monhoc</class>
-		<class>com.example.demo.model.Nguoidung</class>
 		<class>com.example.demo.model.Phongban</class>
-		<class>com.example.demo.model.Quyen</class>
+		<class>com.example.demo.model.Role</class>
+		<class>com.example.demo.model.User</class>
 	</persistence-unit>
 </persistence>

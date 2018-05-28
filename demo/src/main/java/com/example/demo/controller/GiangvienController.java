@@ -48,7 +48,7 @@ public class GiangvienController {
 	
 	
 	@PostMapping("add")
-	public ResponseEntity<BaseResponse> addMonhoc(@Validated Giangvien giangvien, BindingResult result) {
+	public ResponseEntity<BaseResponse> addMonhoc(@RequestBody @Validated Giangvien giangvien, BindingResult result) {
 		boolean flag = giangvienService.addGiangvien(giangvien);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,
@@ -59,7 +59,7 @@ public class GiangvienController {
 	}
 	
 	@PostMapping("update")
-	public ResponseEntity<BaseResponse> editMonhoc(@Validated Giangvien giangvien, BindingResult result) {
+	public ResponseEntity<BaseResponse> editMonhoc(@RequestBody @Validated Giangvien giangvien, BindingResult result) {
 		boolean flag = giangvienService.editGiangvien(giangvien);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,

@@ -15,6 +15,8 @@ public class Giangvien implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="GIANGVIEN_IDGIANGVIEN_GENERATOR", allocationSize = 1 )
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="GIANGVIEN_IDGIANGVIEN_GENERATOR")
 	@Column(name="id_giang_vien")
 	private long idGiangVien;
 
@@ -29,6 +31,24 @@ public class Giangvien implements Serializable {
 
 	@Column(name="que_quan")
 	private String queQuan;
+	
+	@Transient
+	private double dinhMucGioChuan;
+	
+	@Transient
+	private double mienGIam;
+	
+	@Transient
+	private double soGioThucHien;
+	
+	@Transient
+	private double tong;
+	
+	@Transient
+	private double thua;
+	
+	@Transient
+	private double thieu;
 
 	//bi-directional many-to-one association to Chucdanh
 	@ManyToOne
@@ -132,5 +152,77 @@ public class Giangvien implements Serializable {
 	public void setHanhdongs(List<Hanhdong> hanhdongs) {
 		this.hanhdongs = hanhdongs;
 	}
+
+	public double getDinhMucGioChuan() {
+		return dinhMucGioChuan;
+	}
+
+	public void setDinhMucGioChuan(double dinhMucGioChuan) {
+		this.dinhMucGioChuan = dinhMucGioChuan;
+	}
+
+	public double getMienGIam() {
+		return mienGIam;
+	}
+
+	public void setMienGIam(double mienGIam) {
+		this.mienGIam = mienGIam;
+	}
+
+	public double getSoGioThucHien() {
+		return soGioThucHien;
+	}
+
+	public void setSoGioThucHien(double soGioThucHien) {
+		this.soGioThucHien = soGioThucHien;
+	}
+
+	public double getTong() {
+		return tong;
+	}
+
+	public void setTong(double tong) {
+		this.tong = tong;
+	}
+
+	public double getThua() {
+		return thua;
+	}
+
+	public void setThua(double thua) {
+		this.thua = thua;
+	}
+
+	public double getThieu() {
+		return thieu;
+	}
+
+	public void setThieu(double thieu) {
+		this.thieu = thieu;
+	}
+
+	public Giangvien(long idGiangVien, String birthDay, String fullName, String maGv, String queQuan,
+			double dinhMucGioChuan, double mienGIam, double soGioThucHien, double tong, double thua, double thieu,
+			Chucdanh chucdanh, Chucvu chucvu, Phongban phongban, List<Hanhdong> hanhdongs) {
+		super();
+		this.idGiangVien = idGiangVien;
+		this.birthDay = birthDay;
+		this.fullName = fullName;
+		this.maGv = maGv;
+		this.queQuan = queQuan;
+		this.dinhMucGioChuan = dinhMucGioChuan;
+		this.mienGIam = mienGIam;
+		this.soGioThucHien = soGioThucHien;
+		this.tong = tong;
+		this.thua = thua;
+		this.thieu = thieu;
+		this.chucdanh = chucdanh;
+		this.chucvu = chucvu;
+		this.phongban = phongban;
+		this.hanhdongs = hanhdongs;
+	}
+	
+	
+	
 
 }

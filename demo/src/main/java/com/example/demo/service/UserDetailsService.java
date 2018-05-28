@@ -13,36 +13,39 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.dao.NguoiDungRepo;
-import com.example.demo.model.Nguoidung;
+import com.example.demo.dao.UserRepositry;
+import com.example.demo.model.Role;
+import com.example.demo.model.User;
+
 
 @Component("userDetailsService")
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-	private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
+    private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
-	@Autowired
-	private NguoiDungRepo userRepository;
+    @Autowired
+    private UserRepositry userRepository;
 
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(final String login) {
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(final String login) {
+  
+        log.debug("Authenticating {}", login);
+        String lowercaseLogin = login.toLowerCase();
 
-		log.debug("Authenticating {}", login);
-		String lowercaseLogin = login.toLowerCase();
-
-		Nguoidung userFromDatabase;
-		userFromDatabase = userRepository.findByUserNameCaseInsensitive(lowercaseLogin);
-		if (userFromDatabase == null) {
-			throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
-		}
-		Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userFromDatabase.getQuyen().getTenQuyen());
+        User userFromDatabase;
+        userFromDatabase = userRepository.findByUserNameCaseInsensitive(lowercaseLogin);
+        if (userFromDatabase == null) {
+            throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
+        }
+        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (Role groupSecurity : userFromDatabase.getRoles()) {
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(groupSecurity.getNameRole());
             grantedAuthorities.add(grantedAuthority);
+        }
 
-		return new org.springframework.security.core.userdetails.User(userFromDatabase.getTenDangNhap(),
-				userFromDatabase.getMatKhau(), grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(userFromDatabase.getUsername(), userFromDatabase.getPassword(), grantedAuthorities);
 
-	}
+    }
 
 }

@@ -48,7 +48,33 @@ public class GiangvienServiceImpl implements GiangvienService {
 	@Override
 	public Giangvien findGVbyId(long id) {
 		// TODO Auto-generated method stub
-		return giangvienRepo.findByIdGiangVien(id);
+		Giangvien gv = giangvienRepo.findByIdGiangVien(id);
+		gv.setDinhMucGioChuan(dinhMucGioChuan(gv.getChucdanh().getMaChucDanh()));
+		String cv = gv.getChucvu().getMaChucVu();
+		gv.setMienGIam(mienGiam(cv));
+		gv.setSoGioThucHien(gv.getDinhMucGioChuan()-(gv.getDinhMucGioChuan()*(gv.getMienGIam()/100)));
+		List<ThongKeGioGiang> list = thongKeGioGiang(gv.getIdGiangVien());
+		double tong = 0.00;
+		for(ThongKeGioGiang tk : list)
+		{
+			tong += tk.getTongSoGioChuan();
+		}
+		double thua = 0.00;
+		double thieu = 0.00;
+		gv.setTong(tong);
+		if((tong-gv.getSoGioThucHien()) > 0)
+		{
+			thua = (tong-gv.getSoGioThucHien());
+			thieu = 0.00;
+		}
+		if((tong-gv.getSoGioThucHien()) < 0)
+		{
+			thieu = -(tong-gv.getSoGioThucHien());
+			thua = 0.00;
+		}
+		gv.setThua(thua);
+		gv.setThieu(thieu);
+		return gv;
 	}
 
 	@Override
@@ -108,5 +134,72 @@ public class GiangvienServiceImpl implements GiangvienService {
 
 	private double tongSoGioChuan(int soTiet, double heSo) {
 		return soTiet * heSo;
+	}
+	
+	private double mienGiam(String chucVu) {
+		if("TK".equals(chucVu)) {
+			return 25;
+		}
+		if("PK".equals(chucVu)) {
+			return 20;
+		}
+		if("TT".equals(chucVu)) {
+			return 10;
+		}
+		if("TP".equals(chucVu)) {
+			return 5;
+		}
+		if("PBT".equals(chucVu)) {
+			return 25;
+		}
+		if("BTD".equals(chucVu)) {
+			return 25;
+		}
+		if("CTCD".equals(chucVu)) {
+			return 25;
+		}
+		if("CTHPN".equals(chucVu)) {
+			return 25;
+		}
+		if("TVDU".equals(chucVu)) {
+			return 25;
+		}
+		if("PBTD".equals(chucVu)) {
+			return 25;
+		}
+		if("CNL".equals(chucVu)) {
+			return 30;
+		}
+		
+		return 0;
+	}
+	
+	private double dinhMucGioChuan(String chucdanh) {
+		if("GS".equals(chucdanh)) {
+			return 360;
+		}
+		if("PGS".equals(chucdanh)) {
+			return 300;
+		}
+		if("GVT".equals(chucdanh)) {
+			return 280;
+		}
+		if("Gv".equals(chucdanh)) {
+			return 260;
+		}
+		if("TG".equals(chucdanh)) {
+			return 140;
+		}
+		if("CCTCCN".equals(chucdanh)) {
+			return 500;
+		}
+		if("CTCCN".equals(chucdanh)) {
+			return 460;
+		}
+		if("TCCN".equals(chucdanh)) {
+			return 430;
+		}
+		
+		return 0;
 	}
 }

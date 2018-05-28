@@ -41,7 +41,7 @@ public class MonhocController {
 	}
 	
 	@PostMapping("add")
-	public ResponseEntity<BaseResponse> addMonhoc(@Validated Monhoc monhoc, BindingResult result) {
+	public ResponseEntity<BaseResponse> addMonhoc(@RequestBody @Validated Monhoc monhoc, BindingResult result) {
 		boolean flag = monhocService.addMonHoc(monhoc);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,
@@ -52,7 +52,7 @@ public class MonhocController {
 	}
 	
 	@PostMapping("update")
-	public ResponseEntity<BaseResponse> editMonhoc(@Validated Monhoc monhoc, BindingResult result) {
+	public ResponseEntity<BaseResponse> editMonhoc(@RequestBody @Validated Monhoc monhoc, BindingResult result) {
 		boolean flag = monhocService.editMonHoc(monhoc);
 		if(flag) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse(Constants.RESPONSE.SUCCESS_STATUS,

@@ -16,10 +16,10 @@ public class Hanhdong implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="HANHDONG_IDHANHDONG_GENERATOR" )
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HANHDONG_IDHANHDONG_GENERATOR")
+	@SequenceGenerator(name="HANHDONG_IDHANHDONG_GENERATOR", allocationSize = 1 )
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="HANHDONG_IDHANHDONG_GENERATOR")
 	@Column(name="id_hanh_dong")
-	private String idHanhDong;
+	private long idHanhDong;
 
 	@Column(name="ma_hanh_dong")
 	private String maHanhDong;
@@ -50,11 +50,11 @@ public class Hanhdong implements Serializable {
 	public Hanhdong() {
 	}
 
-	public String getIdHanhDong() {
+	public long getIdHanhDong() {
 		return this.idHanhDong;
 	}
 
-	public void setIdHanhDong(String idHanhDong) {
+	public void setIdHanhDong(long idHanhDong) {
 		this.idHanhDong = idHanhDong;
 	}
 
