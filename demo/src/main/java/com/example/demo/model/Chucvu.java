@@ -37,13 +37,19 @@ public class Chucvu implements Serializable {
 	public Chucvu() {
 	}
 
+
+
 	public long getIdChucVu() {
-		return this.idChucVu;
+		return idChucVu;
 	}
+
+
 
 	public void setIdChucVu(long idChucVu) {
 		this.idChucVu = idChucVu;
 	}
+
+
 
 	public String getMaChucVu() {
 		return this.maChucVu;

@@ -5,26 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Chucdanh;
-import com.example.demo.service.ChucdanhService;
+import com.example.demo.model.Giangvien;
+import com.example.demo.model.Hanhdong;
+import com.example.demo.service.HanhdongService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins="*")
 @RestController
-@RequestMapping("/chucdanh")
-public class ChucdanhController {
-
-	@Autowired
-	ChucdanhService chucdanhService;
+@RequestMapping("/hanhdong")
+public class HanhdongController {
 	
-	@GetMapping("list-chucdanh")
-	public ResponseEntity<List<Chucdanh>> getListMonhoc() {
-		List<Chucdanh> list = chucdanhService.getListChucdanh();
-		return new ResponseEntity<List<Chucdanh>>(list, HttpStatus.OK);
+	@Autowired
+	HanhdongService hanhdongService;
+	
+	@GetMapping("list-hanhdong")
+	public ResponseEntity<List<Hanhdong>> getListhanhdong() {
+		List<Hanhdong> list = hanhdongService.list();
+		return new ResponseEntity<List<Hanhdong>>(list, HttpStatus.OK);
 	}
+
 }

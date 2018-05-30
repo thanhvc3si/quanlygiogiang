@@ -6,10 +6,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.ChucdanhRepo;
+import com.example.demo.dao.ChucvuRepo;
 import com.example.demo.dao.GiangvienRepo;
+import com.example.demo.dao.HanhdongRepo;
+import com.example.demo.dao.MonhocRepo;
+import com.example.demo.dao.PhongbanRepo;
+import com.example.demo.model.Chucdanh;
+import com.example.demo.model.Chucvu;
 import com.example.demo.model.Giangvien;
+import com.example.demo.model.GiangvienDTO;
 import com.example.demo.model.Hanhdong;
 import com.example.demo.model.Monhoc;
+import com.example.demo.model.Phongban;
 import com.example.demo.model.ThongKeGioGiang;
 
 @Service
@@ -17,6 +26,21 @@ public class GiangvienServiceImpl implements GiangvienService {
 
 	@Autowired
 	GiangvienRepo giangvienRepo;
+	
+	@Autowired
+	ChucdanhRepo chucdanhRepo;
+	
+	@Autowired
+	ChucvuRepo chucvuRepo;
+	
+	@Autowired
+	PhongbanRepo phongbanRepo;
+	
+	@Autowired
+	HanhdongRepo hanhdongRepo;
+	
+	@Autowired
+	MonhocRepo monhocRepo;
 
 	@Override
 	public List<Giangvien> getlistAllGiangvien() {
@@ -25,16 +49,38 @@ public class GiangvienServiceImpl implements GiangvienService {
 	}
 
 	@Override
-	public boolean addGiangvien(Giangvien giangvien) {
+	public boolean addGiangvien(GiangvienDTO giangvien) {
 		// TODO Auto-generated method stub
-		giangvienRepo.saveAndFlush(giangvien);
+		Giangvien gv = new Giangvien();
+		gv.setMaGv(giangvien.getMaGv());
+		gv.setFullName(giangvien.getFullName());
+		gv.setBirthDay(giangvien.getBirthDay());
+		gv.setQueQuan(giangvien.getQueQuan());
+		Chucdanh cd = chucdanhRepo.findByIdChucDanh(giangvien.getIdChucDanh());
+		gv.setChucdanh(cd);
+		Chucvu cv = chucvuRepo.findByIdChucVu(giangvien.getIdChucVu());
+		gv.setChucvu(cv);
+		Phongban pb = phongbanRepo.findByIdPhongBan(giangvien.getIdPhongBan());
+		gv.setPhongban(pb);
+		giangvienRepo.save(gv);
 		return true;
 	}
 
 	@Override
-	public boolean editGiangvien(Giangvien giangvien) {
+	public boolean editGiangvien(GiangvienDTO giangvien) {
 		// TODO Auto-generated method stub
-		giangvienRepo.save(giangvien);
+		Giangvien gv = giangvienRepo.findByIdGiangVien(giangvien.getIdGiangVien());
+		gv.setMaGv(giangvien.getMaGv());
+		gv.setQueQuan(giangvien.getQueQuan());
+		gv.setFullName(giangvien.getFullName());
+		gv.setBirthDay(giangvien.getBirthDay());
+		Chucdanh cd = chucdanhRepo.findByIdChucDanh(giangvien.getIdChucDanh());
+		gv.setChucdanh(cd);
+		Chucvu cv = chucvuRepo.findByIdChucVu(giangvien.getIdChucVu());
+		gv.setChucvu(cv);
+		Phongban pb = phongbanRepo.findByIdPhongBan(giangvien.getIdPhongBan());
+		gv.setPhongban(pb);
+		giangvienRepo.save(gv);
 		return true;
 	}
 
@@ -85,8 +131,8 @@ public class GiangvienServiceImpl implements GiangvienService {
 		for (Hanhdong hd : hds) {
 			for (Monhoc mh : hd.getMonhocs()) {
 				ThongKeGioGiang tkgg = new ThongKeGioGiang(mh.getTenLop(), mh.getTenMonHoc(), hd.getTenHanhDong(),
-						mh.getSoTiet(), tinhHeSoQuyDoi(mh.getSiSo(), hd.getMaHanhDong()),
-						tongSoGioChuan(mh.getSoTiet(), tinhHeSoQuyDoi(mh.getSiSo(), hd.getMaHanhDong())), " ");
+						soLuong(mh.getSoTiet(), mh.getSiSo(), hd.getMaHanhDong()), tinhHeSoQuyDoi(mh.getSiSo(), hd.getMaHanhDong()),
+						tongSoGioChuan(mh.getSoTiet(), tinhHeSoQuyDoi(mh.getSiSo(), hd.getMaHanhDong()), mh.getSiSo(), hd.getMaHanhDong()), " ");
 				list.add(tkgg);
 			}
 		}
@@ -94,33 +140,34 @@ public class GiangvienServiceImpl implements GiangvienService {
 	}
 
 	private double tinhHeSoQuyDoi(int siSo, String maHanhDong) {
+		double var = 1.00;
 		if (("RDTL").equals(maHanhDong)) {
-			return 1;
+			return var;
 		}
 		if (("RDTN").equals(maHanhDong)) {
-			return 1 / 10;
+			return var / 10;
 		}
 		if (("RDVD").equals(maHanhDong)) {
-			return 1 / 8;
+			return var / 8;
 		}
 		if (("CTTL").equals(maHanhDong)) {
-			return 1 / 8;
+			return var / 8;
 		}
 		if (("CTVD").equals(maHanhDong)) {
-			return 1 / 10;
+			return var / 10;
 		}
 		if (("CTTH").equals(maHanhDong)) {
-			return 1 / 10;
+			return var / 10;
 		}
 		if (("CTTN").equals(maHanhDong)) {
-			return 1 / 20;
+			return var / 20;
 		}
 		if (("DTH").equals(maHanhDong)) {
-			return 1;
+			return var;
 		}
 		if (("DLT").equals(maHanhDong)) {
 			if (siSo < 50) {
-				return 1;
+				return var;
 			}
 			if (siSo >= 50) {
 				return 1.2;
@@ -132,9 +179,14 @@ public class GiangvienServiceImpl implements GiangvienService {
 		return 0;
 	}
 
-	private double tongSoGioChuan(int soTiet, double heSo) {
-		return soTiet * heSo;
-	}
+	private double tongSoGioChuan(int soTiet, double heSo,int siSo, String maHanhDong) {
+		if(("DLT").equals(maHanhDong)||("DTH").equals(maHanhDong)) {
+			return soTiet * heSo;
+		}
+		return siSo * heSo;
+		}
+		
+	
 	
 	private double mienGiam(String chucVu) {
 		if("TK".equals(chucVu)) {
@@ -201,5 +253,43 @@ public class GiangvienServiceImpl implements GiangvienService {
 		}
 		
 		return 0;
+	}
+	private int soLuong(int soTiet,int siSo, String maHanhDong) {
+		if(("DLT").equals(maHanhDong)||("DTH").equals(maHanhDong)) {
+			return soTiet;
+		}
+		return siSo;
+		}
+
+	@Override
+	public boolean updateHanhDongMonHoc(GiangvienDTO giangvien) {
+		Giangvien gv = giangvienRepo.findByIdGiangVien(giangvien.getIdGiangVien());
+		Hanhdong hd = hanhdongRepo.findByIdHanhDong(giangvien.getIdHanhDong());
+		List<Hanhdong> listHD = gv.getHanhdongs();
+		listHD.add(hd);
+		gv.setHanhdongs(listHD);
+		Monhoc mh = monhocRepo.findByIdMonHoc(giangvien.getIdMonHoc());
+		List<Monhoc> list = hd.getMonhocs();
+		list.add(mh);
+		hd.setMonhocs(list);
+		hanhdongRepo.save(hd);
+		giangvienRepo.save(gv);
+		return true;
+	}
+
+	@Override
+	public boolean deleteHanhDongMonHoc(GiangvienDTO giangvien) {
+		Giangvien gv = giangvienRepo.findByIdGiangVien(giangvien.getIdGiangVien());
+		Hanhdong hd = hanhdongRepo.findByIdHanhDong(giangvien.getIdHanhDong());
+		List<Hanhdong> listHD = gv.getHanhdongs();
+		listHD.remove(hd);
+		gv.setHanhdongs(listHD);
+		Monhoc mh = monhocRepo.findByIdMonHoc(giangvien.getIdMonHoc());
+		List<Monhoc> list = hd.getMonhocs();
+		list.remove(mh);
+		hd.setMonhocs(list);
+		hanhdongRepo.save(hd);
+		giangvienRepo.save(gv);
+		return true;
 	}
 }
